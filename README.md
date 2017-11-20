@@ -49,10 +49,11 @@ sid=$( echo $bin | awk -F. '{ print $1 }')
 if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.006.fasta ]
     then
     mash dist -v 1E-8 /home/micb405/resources/project_2/refseq.genomes.k21s1000.msh /home/micb405/Group12/Project2/MaxBin_Good/m\
-yout.006.fasta
+yout.001.fasta
 fi
 done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv >/home/micb405/Group12/Project2/tables/RefSeq_\
-Mash_output_006.tsv
+Mash_output_001.tsv
+* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 **2) BASH Script Using the 16S rRNA Database**
 
@@ -65,10 +66,11 @@ sid=$( echo $bin | awk -F. '{ print $1 }')
 if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.006.fasta ]
     then
     mash dist -v 1E-8 /home/micb405/resources/project_2/Saanich_QCd_SAGs_k21s1000.sig.msh /home/micb405/Group12/Project2/MaxBin_\
-Good/myout.006.fasta
+Good/myout.001.fasta
 fi
 done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv >/home/micb405/Group12/Project2/tables/Saanich\
-_Mash_output_006.tsv
+_Mash_output_001.tsv
+* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 **Exporting the MASH Data: Generating the TSV File**
 
@@ -84,9 +86,11 @@ lastal -f TAB /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva /h
 
 **Exporting the LAST Data: Generating the TSV File**
 
-while read line; do bin=$( echo $line | awk '{ print $1 }'); sid=$( echo $bin | awk -F. '{ print $1 }'); if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.069.fasta ]; then best_hit=$(lastal -f TAB -P 4 /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva /home/micb405/Group12/Project2/MaxBin_Good/myout.069.fasta | grep -v "^#" | head -1); echo $bin,$sid,$best_hit | sed 's/,\| /\t/g'; fi; done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_069.BEST.tsv
+while read line; do bin=$( echo $line | awk '{ print $1 }'); sid=$( echo $bin | awk -F. '{ print $1 }'); if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.001.fasta ]; then best_hit=$(lastal -f TAB -P 4 /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva /home/micb405/Group12/Project2/MaxBin_Good/myout.069.fasta | grep -v "^#" | head -1); echo $bin,$sid,$best_hit | sed 's/,\| /\t/g'; fi; done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv
+* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
-while read line; do accession=$( echo $line | awk '{ print $4 }'); bin=$( echo $line | awk '{ print $1 }' ); if [ ! -z $accession ]; then last_hit=$( grep "$accession" /home/micb405/resources/project_2/SILVA_128_SSURef_taxa_headers.txt | awk '{ $1=""; print $0 }'); echo $bin,$last_hit; fi; done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_069.BEST.tsv >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_classifications_069.BEST.csv
+while read line; do accession=$( echo $line | awk '{ print $4 }'); bin=$( echo $line | awk '{ print $1 }' ); if [ ! -z $accession ]; then last_hit=$( grep "$accession" /home/micb405/resources/project_2/SILVA_128_SSURef_taxa_headers.txt | awk '{ $1=""; print $0 }'); echo $bin,$last_hit; fi; done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_classifications_001.BEST.csv
+* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 **PROKKA Commands:**
 

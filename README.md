@@ -153,7 +153,7 @@ Li H. and Durbin R. (2009) Fast and accurate short read alignment with Burrows-W
 Still Don't Have:
 * FASTQC: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
 * RPKM: https://www.nature.com/articles/nmeth.1226
-* 
+* LAST: http://last.cbrc.jp/doc/last-papers.html
 
 
 

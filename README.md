@@ -161,7 +161,6 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 -o /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_MAG_RPKM.csv
 ```
 
-
 ## References:
 
     Li, D., Liu, C-M., Luo, R., Sadakane, K., and Lam, T-W., (2015) MEGAHIT: An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph. Bioinformatics, doi: 10.1093/bioinformatics/btv033 [PMID: 25609793].

@@ -98,7 +98,7 @@ then best_hit=$(lastal -f TAB -P 4 /home/micb405/resources/project_2/db_SILVA_12
 echo $bin,$sid,$best_hit | sed 's/,\| /\t/g'; fi; \
 done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \ >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv
 ```
-**2) Editing the output file to display taxonomic information
+**2) Editing the output file to display taxonomic information**
 
 ```
 while read line; do accession=$( echo $line | awk '{ print $4 }'); bin=$( echo $line | awk \

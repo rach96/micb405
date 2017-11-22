@@ -15,10 +15,9 @@ Reference the bash script(s) containing all commands. These are to be either hos
 
 **FastQC Commands:** 
 ```
-SI072_LV_150m_DNA_R1.fastq.gz
-SI072_LV_150m_DNA_R2.fastq.gz
 fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz \
+
 fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz
 ```

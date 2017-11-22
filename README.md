@@ -6,11 +6,11 @@ Project 2: Metagenomics
 Reference the bash script(s) containing all commands. These are to be either hosted on a group member's GitHub page and/or emailed to Connor and I will upload them to the MICB405-Metagenomics GitHub page under student_scripts/Group*/.
 
 
-**Workflow Diagram:**
+## Workflow Diagram:
 
 ![screen shot 2017-11-21 at 6 47 59 pm](https://user-images.githubusercontent.com/25336570/33107421-0d96b142-ceec-11e7-8570-591d05fec779.png)
 
-**Directory Structure:**
+## Directory Structure:
 
 ![screen shot 2017-11-21 at 7 18 57 pm](https://user-images.githubusercontent.com/25336570/33108273-48a16490-cef0-11e7-8bcb-82dfaa1f09a6.png)
 
@@ -36,7 +36,7 @@ nohup megahit -1 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz -2 \
 ```
 <br>
 
-**MaxBin (Version 2.2.4; Wu et al. 2014) Commands: Group Contigs Into MAGs**
+## MaxBin (Version 2.2.4; Wu et al. 2014) Commands: Group Contigs Into MAGs
 
 ```
 export PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin: \
@@ -50,7 +50,7 @@ nohup perl5.26.0 /home/micb405/resources/project_2/MaxBin-2.2.4/run_MaxBin.pl -c
 ```
 <br>
 
-**CheckM (Parks et al. 2014) Commands: MAG Quality Control**
+## CheckM (Parks et al. 2014) Commands: MAG Quality Control
 
 ```
 checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 /home/micb405/Group12/Project2/MaxBin_output/ \
@@ -70,7 +70,7 @@ awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/ch
 
 <br>
 
-**MASH: Taxonomic Classification using the RefSeq (Pruitt et al. 2007) Database and the Saanich Inlet Single-Cell Database (Citation):**
+## MASH: Taxonomic Classification using the RefSeq (Pruitt et al. 2007) Database and the Saanich Inlet Single-Cell Database (Citation):
 
 **1) BASH Script: RefSeq Database**
 
@@ -90,7 +90,7 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
-
+<br>
 **2) BASH Script: Saanich Inlet Single-Cell Database**
 
 ```
@@ -108,7 +108,7 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 >/home/micb405/Group12/Project2/tables/RefSeq_Mash_output_001.tsv
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
-
+<br>
 **3) After the output .tsv files were generated, the highest quality annotations were extracted using the command:**
 
 ```
@@ -117,8 +117,8 @@ awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' >Mas
 ```
 <br>
 
-**LAST: Taxonomic Classification using the Silva 128 (Quast et al. 2013) Database:**
-
+## LAST: Taxonomic Classification using the Silva 128 (Quast et al. 2013) Database:
+<br>
 **1) Commands Used:**
 
 ```
@@ -128,6 +128,9 @@ then best_hit=$(lastal -f TAB -P 4 /home/micb405/resources/project_2/db_SILVA_12
 echo $bin,$sid,$best_hit | sed 's/,\| /\t/g'; fi; \
 done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \ >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv
 ```
+
+<br>
+
 **2) Editing the output file to display taxonomic information**
 
 ```
@@ -140,7 +143,7 @@ done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_069.BEST.t
 
 <br>
 
-**Combining the MASH and LAST Data: Generating the TSV File**
+## Combining the MASH and LAST Data: Generating the TSV File
 
 ```
 cat RefSeq_Mash_output_001.tsv RefSeq_Mash_output_006.tsv RefSeq_Mash_output_007.tsv \
@@ -155,7 +158,7 @@ awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > \
 ```
 <br>
 
-**PROKKA (Prokka, 2014) Commands: Gene Classification**
+## PROKKA (Prokka, 2014) Commands: Gene Classification
 
 ```
 prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta 
@@ -164,7 +167,7 @@ prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001
 
 <br>
 
-**RPKM (Mortazavi et al. 2008) Commands: Normalized Gene Abundance**
+## RPKM (Mortazavi et al. 2008) Commands: Normalized Gene Abundance
 
 ```
 nohup bwa index /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa &
@@ -196,9 +199,11 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 
 <br>
 
-**PROKKA and RPKM: Calculating Prevalence and Existence of Nitrogen Cycling Genes**
+## PROKKA and RPKM: Calculating Prevalence and Existence of Nitrogen Cycling Genes
 
 First: Made a text file called nitrogen_cyclers.txt with all of the names of the 16 genes involved involed in the nitrogen cycle and uploaded it to the ORCA server
+
+<br>
 
 **1) Create FASTA file with Gene Names and Sequences**
 
@@ -223,6 +228,8 @@ cat /home/micb405/Group12/Project2/prokka/myout.*/*ffn >tmp_All_bins.ffn
 -i tmp_All_bins.ffn -o bin_nitrogen_cycler_genes.ffn -m 1 -v
 ```
 
+<br>
+
 **2) Index Reference Sequence and Align Contigs to the Reference Sequences**
 
 ```
@@ -235,6 +242,8 @@ nohup bwa mem -t 12 bin_nitrogen_cycler_genes.ffn \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz \
 1>bin_nitrogen_cycler_genes_150m.sam 2>bin_nitrogen_cycler_genes.bwa.stderr &
 ```
+<br>
+
 **3) Calculate RPKM From Abundance Values**
 
 ```
@@ -246,10 +255,11 @@ nohup bwa mem -t 12 bin_nitrogen_cycler_genes.ffn \
 
 <br>
 
-**Generating Nx Curves:**
+## Generating Nx Curves:
 ```
 /home/micb405/resources/project_2/getNx -i /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa -o final.contigs.getNx.csv -v
 ```
+<br>
 
 View data on R:
 ```

@@ -124,7 +124,7 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 -o /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_MAG_RPKM.csv
 
 
-### References:
+## References:
 
 MEGAHIT:
 

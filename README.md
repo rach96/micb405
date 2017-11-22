@@ -159,6 +159,7 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 ```
 /home/micb405/resources/project_2/find_mag_rpkm_average.py -l /home/micb405/Group12/Project2/MaxBin_Good/mag_list.txt -r /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_DNA_RPKM.csv
 -o /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_MAG_RPKM.csv
+```
 
 ## References:
 

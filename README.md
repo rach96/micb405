@@ -180,6 +180,17 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 -o /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_MAG_RPKM.csv
 ```
 
+**Generating Nx Curves:**
+```
+/home/micb405/resources/project_2/getNx -i /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa -o final.contigs.getNx.csv -v
+```
+
+View data on R:
+```
+Rscript /home/micb405/resources/project_2/Nx_curve_generator.R /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/*final.contigs.getNx.csv
+```
+
+
 ## References:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Glöckner FO, Yilmaz P, Quast C, Gerken J, Beccati A, Ciuprina A, Bruns G, Yarza P, Peplies J, Westram R, Ludwig W (2017) 25 years of serving the community with ribosomal RNA gene reference databases and tools. J. Biotechnol. 

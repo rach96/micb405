@@ -14,6 +14,7 @@ Reference the bash script(s) containing all commands. These are to be either hos
 
 ![screen shot 2017-11-21 at 7 18 57 pm](https://user-images.githubusercontent.com/25336570/33108273-48a16490-cef0-11e7-8bcb-82dfaa1f09a6.png)
 
+<br>
 
 **FastQC (Citation) Commands: Quality Control for Input Reads** 
 ```

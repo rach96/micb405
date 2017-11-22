@@ -53,25 +53,16 @@ checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 /home/mi
 ```
 * Note: This command was run by Connor
 
-**Exporting the CheckM Data:**
+**Exporting the CheckM Data (From Connor's Workflow):**
 
 ```
 awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/checkM_output/Group12_checkM_stdout_file.tsv > \ 
 /home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv
 ```
 
-**MASH (Ondov et al. 2016) Commands:**
+**Taxonomic Classification Using Mash: (From Connor's Workflow)**
 
-```
-mash dist /home/micb405/resources/project_2/refseq.genomes.k21s1000.msh \
-/home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta > \
-/home/micb405/Group12/Project2/Mash_output/myout.001.mash
-```
-* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
-
-**Exporting the MASH Data: BASH Scripts**
-
-**1) BASH Script Using the RefSeq Database**
+**1) BASH Script Using the RefSeq (Pruitt et al. 2007) Database**
 
 ```
 #!/bin/bash                                                                                                                      
@@ -89,31 +80,36 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
-**2) BASH Script Using the 16S rRNA Database**
-
-```
-#!/bin/bash                                                                                                                      
-
-while read line
-do
-bin=$( echo $line | awk '{ print $1 }')
-sid=$( echo $bin | awk -F. '{ print $1 }')
-if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.006.fasta ]
-    then
-    mash dist -v 1E-8 /home/micb405/resources/project_2/Saanich_QCd_SAGs_k21s1000.sig.msh \
-    /home/micb405/Group12/Project2/MaxBin_Good/myout.001.fasta 
-fi
-done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \
->/home/micb405/Group12/Project2/tables/Saanich_Mash_output_001.tsv
-```
-* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
-
-**Exporting/Combining the MASH Data: Generating the TSV File**
+**2) After the output .tsv files were generated, the highest quality annotations were extracted using the command (from Connor's Workflow):
 
 ```
 cat RefSeq_Mash_output.tsv Saanich_Mash_output.tsv | sort -t$'\t' -k2,2 | \
 awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' >Mash_classifications.BEST.tsv
 ```
+
+**Taxonomic Classification Using LAST and the Silva (Quast et al. 2013) Database:**
+
+**1) Command Using the Silva Database**
+
+```
+while read line; do bin=$( echo $line | awk '{ print $1 }'); sid=$( echo $bin | awk -F. \
+'{ print $1 }'); if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.001.fasta ]; \
+then best_hit=$(lastal -f TAB -P 4 /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva \ /home/micb405/Group12/Project2/MaxBin_Good/myout.001.fasta | grep -v "^#" | head -1); \
+echo $bin,$sid,$best_hit | sed 's/,\| /\t/g'; fi; \
+done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \ >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv
+```
+**2) Editing the output file to display taxonomic information
+
+```
+while read line; do accession=$( echo $line | awk '{ print $4 }'); bin=$( echo $line | awk \
+'{ print $1 }' ); if [ ! -z $accession ]; then last_hit=$( grep "$accession" \ /home/micb405/resources/project_2/SILVA_128_SSURef_taxa_headers.txt | awk \ 
+'{ $1=""; print $0 }'); echo $bin,$last_hit; fi; \ 
+done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_069.BEST.tsv >/home/micb405/Group12/Pr
+```
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+
+
+**Combining the MASH and LAST Data: Generating the TSV File**
 
 ```
 cat RefSeq_Mash_output_001.tsv RefSeq_Mash_output_006.tsv RefSeq_Mash_output_007.tsv \
@@ -127,37 +123,6 @@ awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > \
 /home/micb405/Group12/Project2/tables/Mash_classifications.BEST.tsv
 ```
 
-**LAST Commands: Running lastal**
-
-```
-lastal -f TAB /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva \
-/home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta \
->/home/micb405/Group12/Project2/LAST_output/myout.001.tab
-```
-* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%) 
-
-**Exporting the LAST Data: Generating the TSV File**
-
-```
-while read line; do bin=$( echo $line | awk '{ print $1 }'); sid=$( echo $bin | awk -F. \
-'{ print $1 }'); if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.001.fasta ]; \
-then best_hit=$(lastal -f TAB -P 4 /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva 
-/home/micb405/Group12/Project2/MaxBin_Good/myout.069.fasta | grep -v "^#" | head -1); \
-echo $bin,$sid,$best_hit | sed 's/,\| /\t/g'; fi; done< \
-/home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \ 
->/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv
-```
-* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
-
-```
-while read line; do accession=$( echo $line | awk '{ print $4 }'); bin=$( echo $line \
-| awk '{ print $1 }' ); if [ ! -z $accession ]; then last_hit=$( grep "$accession" \ 
-/home/micb405/resources/project_2/SILVA_128_SSURef_taxa_headers.txt | awk '{ $1=""; print $0 }'); \
-echo $bin,$last_hit; fi; done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv \ 
->/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_classifications_001.BEST.csv
-```
-* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
-
 **PROKKA (Prokka 2014) Commands:**
 
 ```
@@ -170,8 +135,6 @@ prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001
 ```
 nohup bwa index /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa &
 ```
-
-Copied SI072_LV_150m_DNA_R1.fastq.gz and SI072_LV_150m_DNA_R2.fastq.gz into /home/dtruong/ directory and re-ran the command as
 
 ```
 nohup bwa mem -t 4 /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa \
@@ -199,6 +162,8 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 
 ## References:
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Glöckner FO, Yilmaz P, Quast C, Gerken J, Beccati A, Ciuprina A, Bruns G, Yarza P, Peplies J, Westram R, Ludwig W (2017) 25 years of serving the community with ribosomal RNA gene reference databases and tools. J. Biotechnol. 
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Li, D., Liu, C-M., Luo, R., Sadakane, K., and Lam, T-W., (2015) MEGAHIT: An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph. Bioinformatics, doi: 10.1093/bioinformatics/btv033 [PMID: 25609793]. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Li, D., Luo, R., Liu, C.M., Leung, C.M., Ting, H.F., Sadakane, K., Yamashita, H. and Lam, T.W., 2016. MEGAHIT v1.0: A Fast and Scalable Metagenome Assembler driven by Advanced Methodologies and Community Practices. Methods.
@@ -211,21 +176,19 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW. 2014. Assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes. Genome Research, 25: 1043-1055.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wu YW, Tang YH, Tringe SG, Simmons BA, and Singer SW, "MaxBin: an automated binning method to recover individual genomes from metagenomes using an expectation-maximization algorithm", Microbiome, 2:26, 2014.
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wu YW, Simmons BA, and Singer SW, "MaxBin 2.0: an automated binning algorithm to recover genomes from multiple metagenomic datasets", Bioinformatics, 32(4): 605-607, 2016.
-    
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seemann T. Prokka: rapid prokaryotic genome annotation Bioinformatics 2014 Jul 15;30(14):2068-9. PMID:24642063
-
-**SILVA:**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pruitt, K. D., Tatusova, T., & Maglott, D. R. (2007). NCBI reference sequences (RefSeq): a curated non-redundant sequence database of genomes, transcripts and proteins. Nucleic Acids Research, 35(Database issue), D61–D65. http://doi.org/10.1093/nar/gkl842
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quast C, Pruesse E, Yilmaz P, Gerken J, Schweer T, Yarza P, Peplies J, Glöckner FO (2013) The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucl. Acids Res. 41 (D1): D590-D596.
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seemann T. Prokka: rapid prokaryotic genome annotation Bioinformatics 2014 Jul 15;30(14):2068-9. PMID:24642063
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wu YW, Tang YH, Tringe SG, Simmons BA, and Singer SW, "MaxBin: an automated binning method to recover individual genomes from metagenomes using an expectation-maximization algorithm", Microbiome, 2:26, 2014.
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wu YW, Simmons BA, and Singer SW, "MaxBin 2.0: an automated binning algorithm to recover genomes from multiple metagenomic datasets", Bioinformatics, 32(4): 605-607, 2016.
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yilmaz P, Parfrey LW, Yarza P, Gerken J, Pruesse E, Quast C, Schweer T, Peplies J, Ludwig W, Glöckner FO (2014) The SILVA and "All-species Living Tree Project (LTP)" taxonomic frameworks. Nucl. Acids Res. 42:D643-D648
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Glöckner FO, Yilmaz P, Quast C, Gerken J, Beccati A, Ciuprina A, Bruns G, Yarza P, Peplies J, Westram R, Ludwig W (2017) 25 years of serving the community with ribosomal RNA gene reference databases and tools. J. Biotechnol. 
 
 Still Don't Have:
 * FASTQC: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-* RPKM: https://www.nature.com/articles/nmeth.1226
 * LAST: http://last.cbrc.jp/doc/last-papers.html

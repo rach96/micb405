@@ -281,6 +281,8 @@ View data on R:
 Rscript /home/micb405/resources/project_2/Nx_curve_generator.R /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/*final.contigs.getNx.csv
 ```
 
+<br>
+<br>
 
 ## References:
 

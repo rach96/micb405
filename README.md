@@ -56,7 +56,8 @@ checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 $BIN_DIR
 **Exporting the CheckM Data:**
 
 ```
-awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/checkM_output/Group12_checkM_stdout_file.tsv > \ /home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv
+awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/checkM_output/Group12_checkM_stdout_file.tsv > \ 
+/home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv
 ```
 
 **MASH (Ondov et al. 2016) Commands:**
@@ -122,14 +123,16 @@ RefSeq_Mash_output_069.tsv Saanich_Mash_output_001.tsv Saanich_Mash_output_006.t
 Saanich_Mash_output_007.tsv Saanich_Mash_output_019.tsv Saanich_Mash_output_021.tsv \
 Saanich_Mash_output_028.tsv Saanich_Mash_output_046.tsv Saanich_Mash_output_058.tsv \
 Saanich_Mash_output_065.tsv Saanich_Mash_output_069.tsv | sort -t$'\t' -k2,2 | \
-awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > \ /home/micb405/Group12/Project2/tables/Mash_classifications.BEST.tsv
+awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > \ 
+/home/micb405/Group12/Project2/tables/Mash_classifications.BEST.tsv
 ```
 
 **LAST Commands: Running lastal**
 
 ```
 lastal -f TAB /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva \
-/home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta >/home/micb405/Group12/Project2/LAST_output/myout.001.tab
+/home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta \
+>/home/micb405/Group12/Project2/LAST_output/myout.001.tab
 ```
 * Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%) 
 
@@ -196,21 +199,21 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 
 ## References:
 
-   Li, D., Liu, C-M., Luo, R., Sadakane, K., and Lam, T-W., (2015) MEGAHIT: An ultra-fast single-node solution for </ul> large and complex metagenomics assembly via succinct de Bruijn graph. Bioinformatics, doi: 10.1093/bioinformatics/btv033 [PMID: 25609793]. 
+&nbsp;Li, D., Liu, C-M., Luo, R., Sadakane, K., and Lam, T-W., (2015) MEGAHIT: An ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph. Bioinformatics, doi: 10.1093/bioinformatics/btv033 [PMID: 25609793]. 
 
-<ul> Li, D., Luo, R., Liu, C.M., Leung, C.M., Ting, H.F., Sadakane, K., Yamashita, H. and Lam, T.W., 2016. MEGAHIT v1.0: A Fast </ul>   and Scalable Metagenome Assembler driven by Advanced Methodologies and Community Practices. Methods.
+&nbsp;Li, D., Luo, R., Liu, C.M., Leung, C.M., Ting, H.F., Sadakane, K., Yamashita, H. and Lam, T.W., 2016. MEGAHIT v1.0: A Fast and Scalable Metagenome Assembler driven by Advanced Methodologies and Community Practices. Methods.
     
-<ul> Li H. and Durbin R. (2009) Fast and accurate short read alignment with Burrows-Wheeler Transform. Bioinformatics, 25:1754-60.</ul>
+&nbsp;Li H. and Durbin R. (2009) Fast and accurate short read alignment with Burrows-Wheeler Transform. Bioinformatics, 25:1754-60.
     
-<ul> Ondov BD, Treangen TJ, Melsted P, Mallonee AB, Bergman NH, Koren S, Phillippy AM. Mash: fast genome and metagenome </ul>       distance estimation using MinHash. Genome Biol. 2016 Jun 20;17(1):132. doi: 10.1186/s13059-016-0997-x.
+&nbsp;Ondov BD, Treangen TJ, Melsted P, Mallonee AB, Bergman NH, Koren S, Phillippy AM. Mash: fast genome and metagenome distance estimation using MinHash. Genome Biol. 2016 Jun 20;17(1):132. doi: 10.1186/s13059-016-0997-x.
 
-<ul> Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW. 2014. Assessing the quality of microbial genomes recovered </ul>     from isolates, single cells, and metagenomes. Genome Research, 25: 1043-1055.
+&nbsp;Parks DH, Imelfort M, Skennerton CT, Hugenholtz P, Tyson GW. 2014. Assessing the quality of microbial genomes recovered from isolates, single cells, and metagenomes. Genome Research, 25: 1043-1055.
 
-<ul> Wu YW, Tang YH, Tringe SG, Simmons BA, and Singer SW, "MaxBin: an automated binning method to recover individual genomes </ul>    from metagenomes using an expectation-maximization algorithm", Microbiome, 2:26, 2014.
+&nbsp;Wu YW, Tang YH, Tringe SG, Simmons BA, and Singer SW, "MaxBin: an automated binning method to recover individual genomes from metagenomes using an expectation-maximization algorithm", Microbiome, 2:26, 2014.
 
-<ul> Wu YW, Simmons BA, and Singer SW, "MaxBin 2.0: an automated binning algorithm to recover genomes from multiple metagenomic </ul> datasets", Bioinformatics, 32(4): 605-607, 2016.
+&nbsp;Wu YW, Simmons BA, and Singer SW, "MaxBin 2.0: an automated binning algorithm to recover genomes from multiple metagenomic datasets", Bioinformatics, 32(4): 605-607, 2016.
     
-<ul> Seemann T. Prokka: rapid prokaryotic genome annotation Bioinformatics 2014 Jul 15;30(14):2068-9. PMID:24642063
+&nbsp;Seemann T. Prokka: rapid prokaryotic genome annotation Bioinformatics 2014 Jul 15;30(14):2068-9. PMID:24642063
 
 Still Don't Have:
 * FASTQC: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/

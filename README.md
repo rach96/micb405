@@ -47,7 +47,7 @@ nohup perl5.26.0 /home/micb405/resources/project_2/MaxBin-2.2.4/run_MaxBin.pl -c
 **CheckM (Parks et al. 2014) Commands:**
 
 ```
-checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 $BIN_DIR \
+checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 /home/micb405/Group12/Project2/MaxBin_output/ \
 /mnt/nfs/sharknado/Connor_MICB405_sandbox/ProcessedData/checkM/Reference/$sid\_checkm_output/ \  
 >/mnt/nfs/sharknado/Connor_MICB405_sandbox/ProcessedData/checkM/Reference/$sid\_checkM_stdout.tsv
 ```

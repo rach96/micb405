@@ -5,6 +5,7 @@ Project 2: Metagenomics
 
 Reference the bash script(s) containing all commands. These are to be either hosted on a group member's GitHub page and/or emailed to Connor and I will upload them to the MICB405-Metagenomics GitHub page under student_scripts/Group*/.
 
+
 **Workflow Diagram:**
 
 ![screen shot 2017-11-21 at 6 47 59 pm](https://user-images.githubusercontent.com/25336570/33107421-0d96b142-ceec-11e7-8570-591d05fec779.png)
@@ -12,6 +13,7 @@ Reference the bash script(s) containing all commands. These are to be either hos
 **Directory Structure:**
 
 ![screen shot 2017-11-21 at 7 18 57 pm](https://user-images.githubusercontent.com/25336570/33108273-48a16490-cef0-11e7-8bcb-82dfaa1f09a6.png)
+
 
 **FastQC (Citation) Commands:** 
 ```
@@ -60,9 +62,9 @@ awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/ch
 /home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv
 ```
 
-**Taxonomic Classification Using Mash: (From Connor's Workflow)**
+**Taxonomic Classification Using MASH and the RefSeq (Pruitt et al. 2007) Database: **
 
-**1) BASH Script Using the RefSeq (Pruitt et al. 2007) Database**
+**1) BASH Script **
 
 ```
 #!/bin/bash                                                                                                                      
@@ -80,7 +82,7 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
-**2) After the output .tsv files were generated, the highest quality annotations were extracted using the command (from Connor's Workflow):**
+**2) After the output .tsv files were generated, the highest quality annotations were extracted using the command:**
 
 ```
 cat RefSeq_Mash_output.tsv Saanich_Mash_output.tsv | sort -t$'\t' -k2,2 | \
@@ -89,7 +91,7 @@ awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' >Mas
 
 **Taxonomic Classification Using LAST and the Silva (Quast et al. 2013) Database:**
 
-**1) Command Using the Silva Database**
+**1) BASH Script**
 
 ```
 while read line; do bin=$( echo $line | awk '{ print $1 }'); sid=$( echo $bin | awk -F. \

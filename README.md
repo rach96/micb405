@@ -15,7 +15,7 @@ Reference the bash script(s) containing all commands. These are to be either hos
 ![screen shot 2017-11-21 at 7 18 57 pm](https://user-images.githubusercontent.com/25336570/33108273-48a16490-cef0-11e7-8bcb-82dfaa1f09a6.png)
 
 
-**FastQC (Citation) Commands:** 
+**FastQC (Citation) Commands: Quality Control for Input Reads** 
 ```
 fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz 
@@ -24,7 +24,7 @@ fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz
 ```
 
-**MEGAHIT (Li et al. 2015) Commands:**
+**MEGAHIT (Li et al. 2015) Commands: Assembly**
 
 ```
 nohup megahit -1 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz -2 \
@@ -33,7 +33,7 @@ nohup megahit -1 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz -2 \
 /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m & 
 ```
 
-**MaxBin (Version 2.2.4; Wu et al. 2014) Commands:**
+**MaxBin (Version 2.2.4; Wu et al. 2014) Commands: Group Contigs Into MAGs**
 
 ```
 export PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin: \
@@ -46,7 +46,7 @@ nohup perl5.26.0 /home/micb405/resources/project_2/MaxBin-2.2.4/run_MaxBin.pl -c
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz -out myout -thread 2 -plotmarker &
 ```
 
-**CheckM (Parks et al. 2014) Commands:**
+**CheckM (Parks et al. 2014) Commands: MAG Quality Control**
 
 ```
 checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 /home/micb405/Group12/Project2/MaxBin_output/ \
@@ -62,7 +62,7 @@ awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/ch
 /home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv
 ```
 
-**Taxonomic Classification Using MASH and the RefSeq (Pruitt et al. 2007) Database and the Saanich Inlet Single-Cell Database (Citation):**
+**MASH: Taxonomic Classification using the RefSeq (Pruitt et al. 2007) Database and the Saanich Inlet Single-Cell Database (Citation):**
 
 **1) BASH Script: RefSeq Database**
 
@@ -107,7 +107,7 @@ cat RefSeq_Mash_output.tsv Saanich_Mash_output.tsv | sort -t$'\t' -k2,2 | \
 awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' >Mash_classifications.BEST.tsv
 ```
 
-**Taxonomic Classification Using LAST and the Silva 128 (Quast et al. 2013) Database:**
+**LAST: Taxonomic Classification using the Silva 128 (Quast et al. 2013) Database:**
 
 **1) Commands Used:**
 
@@ -143,14 +143,14 @@ awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > \
 /home/micb405/Group12/Project2/tables/Mash_classifications.BEST.tsv
 ```
 
-**PROKKA (Prokka, 2014) Commands:**
+**PROKKA (Prokka, 2014) Commands: Gene Classification**
 
 ```
 prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta 
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%) 
 
-**RPKM (Mortazavi et al. 2008) Commands:**
+**RPKM (Mortazavi et al. 2008) Commands: Normalized Gene Abundance**
 
 ```
 nohup bwa index /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa &
@@ -179,6 +179,55 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_DNA_RPKM.csv \
 -o /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_MAG_RPKM.csv
 ```
+
+**PROKKA and RPKM: Calculating Prevalence and Existence of Nitrogen Cycling Genes**
+
+First: Made a text file called nitrogen_cyclers.txt with all of the names of the 16 genes involved involed in the nitrogen cycle and uploaded it to the ORCA server
+
+**1) Create FASTA file with Gene Names and Sequences**
+
+```
+while read line; do grep $line /home/micb405/Group12/Project2/prokka/myout.*/*ffn>tmp \
+>>bin_nitrogen_cycler_genes.txt; done<nitrogen_cyclers.txt
+```
+
+```
+while read line \
+do ffn=$( echo $line | awk -F':' '{ print $1 }' | sed 's/.tsv/.ffn/g' ) \
+prefix=$( echo $line | awk '{ print $1 }' | awk -F':' '{ print $2 }' ) \
+grep "$prefix" $ffn; done<bin_nitrogen_cycler_genes.txt >bin_nitrogen_cycler_headers.txt
+```
+
+```
+cat /home/micb405/Group12/Project2/prokka/myout.*/*ffn >tmp_All_bins.ffn
+```
+
+```
+/home/micb405/resources/project_2/FastaSubsetter.py -l bin_nitrogen_cycler_headers.txt \
+-i tmp_All_bins.ffn -o bin_nitrogen_cycler_genes.ffn -m 1 -v
+```
+
+**2) Index Reference Sequence and Align Contigs to the Reference Sequences**
+
+```
+bwa index bin_nitrogen_cycler_genes.ffn
+```
+
+```
+nohup bwa mem -t 12 bin_nitrogen_cycler_genes.ffn \
+/home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz \
+/home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz \
+1>bin_nitrogen_cycler_genes_150m.sam 2>bin_nitrogen_cycler_genes.bwa.stderr &
+```
+**3) Calculate RPKM From Abundance Values**
+
+```
+/home/micb405/resources/project_2/rpkm -c bin_nitrogen_cycler_genes.ffn \
+-a bin_nitrogen_cycler_genes_150m.sam \
+-o bin_nitrogen_cycler_genes_150m_RPKM.csv \
+--verbose
+```
+
 
 **Generating Nx Curves:**
 ```

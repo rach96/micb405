@@ -31,7 +31,7 @@ nohup megahit -1 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz -2 \
 /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m & 
 ```
 
-**MaxBin (Version 2.0; Wu et al. 2014) Commands:**
+**MaxBin (Version 2.2.4; Wu et al. 2014) Commands:**
 
 ```
 export PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/sbin: \

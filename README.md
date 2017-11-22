@@ -14,7 +14,6 @@ Reference the bash script(s) containing all commands. These are to be either hos
 
 ![screen shot 2017-11-21 at 7 18 57 pm](https://user-images.githubusercontent.com/25336570/33108273-48a16490-cef0-11e7-8bcb-82dfaa1f09a6.png)
 
-<br>
 
 ## FastQC (Citation) Commands: Quality Control for Input Reads
 ```
@@ -91,6 +90,7 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 <br>
+
 **2) BASH Script: Saanich Inlet Single-Cell Database**
 
 ```
@@ -108,17 +108,22 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 >/home/micb405/Group12/Project2/tables/RefSeq_Mash_output_001.tsv
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+
 <br>
+
 **3) After the output .tsv files were generated, the highest quality annotations were extracted using the command:**
 
 ```
 cat RefSeq_Mash_output.tsv Saanich_Mash_output.tsv | sort -t$'\t' -k2,2 | \
 awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' >Mash_classifications.BEST.tsv
 ```
+
 <br>
 
 ## LAST: Taxonomic Classification using the Silva 128 (Quast et al. 2013) Database:
+
 <br>
+
 **1) Commands Used:**
 
 ```
@@ -169,9 +174,13 @@ prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001
 
 ## RPKM (Mortazavi et al. 2008) Commands: Normalized Gene Abundance
 
+**1) Index the Reference**
+
 ```
 nohup bwa index /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa &
 ```
+
+**2) Align the Forward/Reverse Reads to the Reference to Obtain Gene Abundance**
 
 ```
 nohup bwa mem -t 4 /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa \
@@ -180,15 +189,21 @@ nohup bwa mem -t 4 /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.co
 2>/home/micb405/Group12/Project2/BWA_output/SI072_LV_150m_DNA.bwa.stderr &
 ```
 
+**3) Normalize Abundance Using RPKM**
+
 ```
 /home/micb405/resources/project_2/rpkm -c /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa \
 -a /home/micb405/Group12/Project2/BWA_output/SI072_LV_150m_DNA.sam -o \
 /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_DNA_RPKM.csv
 ```
 
+**4) Output Sequences From High Quality Bins into TXT File:**
+
 ```
 ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 ```
+
+**5) Determine Average RPKM of High Quality MAGs**
 
 ```
 /home/micb405/resources/project_2/find_mag_rpkm_average.py -l \

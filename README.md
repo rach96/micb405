@@ -24,6 +24,7 @@ fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz
 ```
+<br>
 
 **MEGAHIT (Li et al. 2015) Commands: Assembly**
 
@@ -33,6 +34,7 @@ nohup megahit -1 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz -2 \
 --k-step 20 --min-contig-len 1000 -m 0.07 -t 2 --out-dir \
 /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m & 
 ```
+<br>
 
 **MaxBin (Version 2.2.4; Wu et al. 2014) Commands: Group Contigs Into MAGs**
 
@@ -46,6 +48,7 @@ nohup perl5.26.0 /home/micb405/resources/project_2/MaxBin-2.2.4/run_MaxBin.pl -c
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz -reads2 \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz -out myout -thread 2 -plotmarker &
 ```
+<br>
 
 **CheckM (Parks et al. 2014) Commands: MAG Quality Control**
 
@@ -56,12 +59,16 @@ checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 /home/mi
 ```
 * Note: This command was run by Connor
 
+<br>
+
 **Exporting the CheckM Data:**
 
 ```
 awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/checkM_output/Group12_checkM_stdout_file.tsv > \ 
 /home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv
 ```
+
+<br>
 
 **MASH: Taxonomic Classification using the RefSeq (Pruitt et al. 2007) Database and the Saanich Inlet Single-Cell Database (Citation):**
 
@@ -82,6 +89,7 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 >/home/micb405/Group12/Project2/tables/RefSeq_Mash_output_001.tsv
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+
 
 **2) BASH Script: Saanich Inlet Single-Cell Database**
 
@@ -107,6 +115,7 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 cat RefSeq_Mash_output.tsv Saanich_Mash_output.tsv | sort -t$'\t' -k2,2 | \
 awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' >Mash_classifications.BEST.tsv
 ```
+<br>
 
 **LAST: Taxonomic Classification using the Silva 128 (Quast et al. 2013) Database:**
 
@@ -129,6 +138,7 @@ done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_069.BEST.t
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
+<br>
 
 **Combining the MASH and LAST Data: Generating the TSV File**
 
@@ -143,6 +153,7 @@ Saanich_Mash_output_065.tsv Saanich_Mash_output_069.tsv | sort -t$'\t' -k2,2 | \
 awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > \ 
 /home/micb405/Group12/Project2/tables/Mash_classifications.BEST.tsv
 ```
+<br>
 
 **PROKKA (Prokka, 2014) Commands: Gene Classification**
 
@@ -150,6 +161,8 @@ awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > \
 prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta 
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%) 
+
+<br>
 
 **RPKM (Mortazavi et al. 2008) Commands: Normalized Gene Abundance**
 
@@ -180,6 +193,8 @@ ls /home/micb405/Group12/Project2/MaxBin_Good/*fasta >mag_list.txt
 /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_DNA_RPKM.csv \
 -o /home/micb405/Group12/Project2/RPKM/SI072_LV_150m_MAG_RPKM.csv
 ```
+
+<br>
 
 **PROKKA and RPKM: Calculating Prevalence and Existence of Nitrogen Cycling Genes**
 
@@ -229,6 +244,7 @@ nohup bwa mem -t 12 bin_nitrogen_cycler_genes.ffn \
 --verbose
 ```
 
+<br>
 
 **Generating Nx Curves:**
 ```

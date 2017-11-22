@@ -55,7 +55,7 @@ checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 /home/mi
 ```
 * Note: This command was run by Connor
 
-**Exporting the CheckM Data (From Connor's Workflow):**
+**Exporting the CheckM Data:**
 
 ```
 awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/checkM_output/Group12_checkM_stdout_file.tsv > \ 

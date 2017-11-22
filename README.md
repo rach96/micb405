@@ -5,6 +5,9 @@ Project 2: Metagenomics
 
 Reference the bash script(s) containing all commands. These are to be either hosted on a group member's GitHub page and/or emailed to Connor and I will upload them to the MICB405-Metagenomics GitHub page under student_scripts/Group*/.
 
+**Workflow Diagram:**
+![screen shot 2017-11-21 at 6 47 59 pm](https://user-images.githubusercontent.com/25336570/33107421-0d96b142-ceec-11e7-8570-591d05fec779.png)
+
 **FastQC Commands:** 
 
 SI072_LV_150m_DNA_R1.fastq.gz

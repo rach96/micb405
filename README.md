@@ -67,7 +67,7 @@ mash dist /home/micb405/resources/project_2/refseq.genomes.k21s1000.msh \
 /home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta > \
 /home/micb405/Group12/Project2/Mash_output/myout.001.mash
 ```
-* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 **Exporting the MASH Data: BASH Scripts**
 
@@ -87,7 +87,7 @@ fi
 done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \
 >/home/micb405/Group12/Project2/tables/RefSeq_Mash_output_001.tsv
 ```
-* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 **2) BASH Script Using the 16S rRNA Database**
 
@@ -106,7 +106,7 @@ fi
 done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \
 >/home/micb405/Group12/Project2/tables/Saanich_Mash_output_001.tsv
 ```
-* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 **Exporting/Combining the MASH Data: Generating the TSV File**
 
@@ -134,7 +134,7 @@ lastal -f TAB /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva \
 /home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta \
 >/home/micb405/Group12/Project2/LAST_output/myout.001.tab
 ```
-* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%) 
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%) 
 
 **Exporting the LAST Data: Generating the TSV File**
 
@@ -147,7 +147,7 @@ echo $bin,$sid,$best_hit | sed 's/,\| /\t/g'; fi; done< \
 /home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \ 
 >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv
 ```
-* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 ```
 while read line; do accession=$( echo $line | awk '{ print $4 }'); bin=$( echo $line \
@@ -156,14 +156,14 @@ while read line; do accession=$( echo $line | awk '{ print $4 }'); bin=$( echo $
 echo $bin,$last_hit; fi; done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv \ 
 >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_classifications_001.BEST.csv
 ```
-* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 **PROKKA (Prokka 2014) Commands:**
 
 ```
 prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta 
 ```
-* Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%) 
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%) 
 
 **RPKM Commands:**
 

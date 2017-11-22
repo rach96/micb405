@@ -13,7 +13,7 @@ Reference the bash script(s) containing all commands. These are to be either hos
 
 ![screen shot 2017-11-21 at 7 18 57 pm](https://user-images.githubusercontent.com/25336570/33108273-48a16490-cef0-11e7-8bcb-82dfaa1f09a6.png)
 
-**FastQC Commands:** 
+**FastQC (Citation) Commands:** 
 ```
 fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz 

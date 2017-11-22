@@ -38,7 +38,8 @@ export PATH=/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/
 /usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/micb405/resources/project_2/FragGeneScan1.30
 ```
 ```
-nohup perl5.26.0 /home/micb405/resources/project_2/MaxBin-2.2.4/run_MaxBin.pl -contig \ /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa -reads \
+nohup perl5.26.0 /home/micb405/resources/project_2/MaxBin-2.2.4/run_MaxBin.pl -contig \ 
+/home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa -reads \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz -reads2 \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz -out myout -thread 2 -plotmarker &
 ```
@@ -47,7 +48,8 @@ nohup perl5.26.0 /home/micb405/resources/project_2/MaxBin-2.2.4/run_MaxBin.pl -c
 
 ```
 checkm lineage_wf --tab_table -x .fasta --threads 4 --pplacer_threads 4 $BIN_DIR \
-/mnt/nfs/sharknado/Connor_MICB405_sandbox/ProcessedData/checkM/Reference/$sid\_checkm_output/ \  >/mnt/nfs/sharknado/Connor_MICB405_sandbox/ProcessedData/checkM/Reference/$sid\_checkM_stdout.tsv
+/mnt/nfs/sharknado/Connor_MICB405_sandbox/ProcessedData/checkM/Reference/$sid\_checkm_output/ \  
+>/mnt/nfs/sharknado/Connor_MICB405_sandbox/ProcessedData/checkM/Reference/$sid\_checkM_stdout.tsv
 ```
 * Note: This command was run by Connor
 
@@ -136,16 +138,20 @@ lastal -f TAB /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva \
 ```
 while read line; do bin=$( echo $line | awk '{ print $1 }'); sid=$( echo $bin | awk -F. \
 '{ print $1 }'); if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.001.fasta ]; \
-then best_hit=$(lastal -f TAB -P 4 /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva /home/micb405/Group12/Project2/MaxBin_Good/myout.069.fasta | grep -v "^#" | head -1); \
+then best_hit=$(lastal -f TAB -P 4 /home/micb405/resources/project_2/db_SILVA_128_SSURef_tax_silva 
+/home/micb405/Group12/Project2/MaxBin_Good/myout.069.fasta | grep -v "^#" | head -1); \
 echo $bin,$sid,$best_hit | sed 's/,\| /\t/g'; fi; done< \
-/home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \ >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv
+/home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \ 
+>/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv
 ```
 * Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
 ```
 while read line; do accession=$( echo $line | awk '{ print $4 }'); bin=$( echo $line \
-| awk '{ print $1 }' ); if [ ! -z $accession ]; then last_hit=$( grep "$accession" \ /home/micb405/resources/project_2/SILVA_128_SSURef_taxa_headers.txt | awk '{ $1=""; print $0 }'); \
-echo $bin,$last_hit; fi; done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv \ >/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_classifications_001.BEST.csv
+| awk '{ print $1 }' ); if [ ! -z $accession ]; then last_hit=$( grep "$accession" \ 
+/home/micb405/resources/project_2/SILVA_128_SSURef_taxa_headers.txt | awk '{ $1=""; print $0 }'); \
+echo $bin,$last_hit; fi; done</home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_alignments_001.BEST.tsv \ 
+>/home/micb405/Group12/Project2/LAST_tables/LAST_SILVA_classifications_001.BEST.csv
 ```
 * Note: This command was repeated for Bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 

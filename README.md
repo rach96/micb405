@@ -80,7 +80,7 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
-**2) After the output .tsv files were generated, the highest quality annotations were extracted using the command (from Connor's Workflow):
+**2) After the output .tsv files were generated, the highest quality annotations were extracted using the command (from Connor's Workflow):**
 
 ```
 cat RefSeq_Mash_output.tsv Saanich_Mash_output.tsv | sort -t$'\t' -k2,2 | \

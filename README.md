@@ -12,6 +12,7 @@ Reference the bash script(s) containing all commands. These are to be either hos
 **Directory Structure:**
 
 
+![screen shot 2017-11-21 at 7 13 32 pm](https://user-images.githubusercontent.com/25336570/33108168-b7803f4a-ceef-11e7-9a92-169774a07b2b.png)
 
 **FastQC Commands:** 
 

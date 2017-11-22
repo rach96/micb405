@@ -62,9 +62,9 @@ awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/ch
 /home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv
 ```
 
-**Taxonomic Classification Using MASH and the RefSeq (Pruitt et al. 2007) Database:**
+**Taxonomic Classification Using MASH and the RefSeq (Pruitt et al. 2007) Database and the Saanich Inlet Single-Cell Database (Citation):**
 
-**1) BASH Script**
+**1) BASH Script: RefSeq Database**
 
 ```
 #!/bin/bash                                                                                                                      
@@ -82,16 +82,34 @@ done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.ts
 ```
 * Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
 
-**2) After the output .tsv files were generated, the highest quality annotations were extracted using the command:**
+**2) BASH Script: Saanich Inlet Single-Cell Database**
+
+```
+#!/bin/bash                                                                                                                      
+while read line
+do
+bin=$( echo $line | awk '{ print $1 }')
+sid=$( echo $bin | awk -F. '{ print $1 }')
+if [ -f /home/micb405/Group12/Project2/MaxBin_Good/myout.006.fasta ]
+    then
+    mash dist -v 1E-8 /home/micb405/resources/project_2/Saanich_QCd_SAGs_k21s1000.sig.msh \
+    /home/micb405/Group12/Project2/MaxBin_Good/myout.001.fasta
+fi
+done</home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv \
+>/home/micb405/Group12/Project2/tables/RefSeq_Mash_output_001.tsv
+```
+* Note: This command was repeated for bins: 6,7,9,19,21,24,28,46,58,65,68,69 (met the threshold of completeness > 10% and contamination < 5%)
+
+**3) After the output .tsv files were generated, the highest quality annotations were extracted using the command:**
 
 ```
 cat RefSeq_Mash_output.tsv Saanich_Mash_output.tsv | sort -t$'\t' -k2,2 | \
 awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' >Mash_classifications.BEST.tsv
 ```
 
-**Taxonomic Classification Using LAST and the Silva (Quast et al. 2013) Database:**
+**Taxonomic Classification Using LAST and the Silva 128 (Quast et al. 2013) Database:**
 
-**1) BASH Script**
+**1) Commands Used:**
 
 ```
 while read line; do bin=$( echo $line | awk '{ print $1 }'); sid=$( echo $bin | awk -F. \

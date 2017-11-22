@@ -16,7 +16,7 @@ Reference the bash script(s) containing all commands. These are to be either hos
 
 <br>
 
-**FastQC (Citation) Commands: Quality Control for Input Reads** 
+## FastQC (Citation) Commands: Quality Control for Input Reads
 ```
 fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz 
@@ -26,7 +26,7 @@ fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 ```
 <br>
 
-**MEGAHIT (Li et al. 2015) Commands: Assembly**
+## MEGAHIT (Li et al. 2015) Commands: Assembly
 
 ```
 nohup megahit -1 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz -2 \

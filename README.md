@@ -1,4 +1,4 @@
-# micb405: Bash Scripts/Commands
+# micb405: Bash Scripts/Commands (Adapted From Connor's Multiple Workflows)
 Project 2: Metagenomics
 
 **Task:**
@@ -64,7 +64,7 @@ awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/ch
 
 **Taxonomic Classification Using MASH and the RefSeq (Pruitt et al. 2007) Database: **
 
-**1) BASH Script **
+**1) BASH Script**
 
 ```
 #!/bin/bash                                                                                                                      

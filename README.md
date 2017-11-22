@@ -1,5 +1,5 @@
 # micb405: Bash Scripts/Commands (Adapted From Connor's Multiple Workflows)
-Project 2: Metagenomics
+**Project 2: Metagenomics**
 
 **Task:**
 

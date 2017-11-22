@@ -62,7 +62,7 @@ awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/ch
 /home/micb405/Group12/Project2/tables/GT10Complete_LT5Contam_MAGs_checkM.tsv
 ```
 
-**Taxonomic Classification Using MASH and the RefSeq (Pruitt et al. 2007) Database: **
+**Taxonomic Classification Using MASH and the RefSeq (Pruitt et al. 2007) Database:**
 
 **1) BASH Script**
 

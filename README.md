@@ -15,7 +15,7 @@ Reference the bash script(s) containing all commands. These are to be either hos
 ![screen shot 2017-11-22 at 7 21 15 pm](https://user-images.githubusercontent.com/25336570/33157834-e7b1248e-cfb9-11e7-9e1c-237fc569a49e.png)
 
 
-## FastQC (Citation) Commands: Quality Control for Input Reads
+## FastQC (Brown et al. 2017) Commands: Quality Control for Input Reads
 ```
 fastqc --threads 2 -o /home/micb405/Group12/Project2/FastQC_Output/ \
 /home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz 
@@ -120,7 +120,7 @@ awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' >Mas
 
 <br>
 
-## LAST: Taxonomic Classification using the Silva 128 (Quast et al. 2013) Database:
+## LAST (Frith et al. 2010): Taxonomic Classification using the Silva 128 (Quast et al. 2013) Database:
 
 <br>
 
@@ -285,6 +285,10 @@ Rscript /home/micb405/resources/project_2/Nx_curve_generator.R /home/micb405/Gro
 <br>
 
 ## References:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Brown, J., Pirrung, M., & McCue, L. (2017). FQC dashboard: Integrates FastQC results into a web-based, interactive, and extensible FASTQ quality control tool. Bioinformatics, 33(19), 3137-3139. doi:10.1093/bioinformatics/btx373
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Frith, M., Hamada, M., & Horton, P. (2010). Parameters for accurate genome alignment. Bmc Bioinformatics, 11(1), 80-80. doi:10.1186/1471-2105-11-80
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Glöckner FO, Yilmaz P, Quast C, Gerken J, Beccati A, Ciuprina A, Bruns G, Yarza P, Peplies J, Westram R, Ludwig W (2017) 25 years of serving the community with ribosomal RNA gene reference databases and tools. J. Biotechnol. 
 

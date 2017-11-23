@@ -270,7 +270,7 @@ nohup bwa mem -t 12 bin_nitrogen_cycler_genes.ffn \
 
 <br>
 
-## Generating Nx Curves:
+## Creating and Plotting Nx Curves:
 ```
 /home/micb405/resources/project_2/getNx -i /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa -o final.contigs.getNx.csv -v
 ```

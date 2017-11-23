@@ -12,7 +12,7 @@ Reference the bash script(s) containing all commands. These are to be either hos
 
 ## Directory Structure:
 
-![screen shot 2017-11-21 at 7 18 57 pm](https://user-images.githubusercontent.com/25336570/33108273-48a16490-cef0-11e7-8bcb-82dfaa1f09a6.png)
+![screen shot 2017-11-22 at 7 21 15 pm](https://user-images.githubusercontent.com/25336570/33157834-e7b1248e-cfb9-11e7-9e1c-237fc569a49e.png)
 
 
 ## FastQC (Citation) Commands: Quality Control for Input Reads

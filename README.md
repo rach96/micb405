@@ -317,8 +317,3 @@ Rscript /home/micb405/resources/project_2/Nx_curve_generator.R /home/micb405/Gro
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wu YW, Simmons BA, and Singer SW, "MaxBin 2.0: an automated binning algorithm to recover genomes from multiple metagenomic datasets", Bioinformatics, 32(4): 605-607, 2016.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yilmaz P, Parfrey LW, Yarza P, Gerken J, Pruesse E, Quast C, Schweer T, Peplies J, Ludwig W, Glöckner FO (2014) The SILVA and "All-species Living Tree Project (LTP)" taxonomic frameworks. Nucl. Acids Res. 42:D643-D648
-
-
-Still Don't Have:
-* FASTQC: https://www.bioinformatics.babraham.ac.uk/projects/fastqc/
-* LAST: http://last.cbrc.jp/doc/last-papers.html

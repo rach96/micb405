@@ -69,7 +69,7 @@ awk -F"\t" '{ if ($12>10 && $13<5) print $0 }' /home/micb405/Group12/Project2/ch
 
 <br>
 
-## MASH: Taxonomic Classification using the RefSeq (Pruitt et al. 2007) Database and the Saanich Inlet Single-Cell Database (Citation):
+## MASH: Taxonomic Classification using the RefSeq (Pruitt et al. 2007) Database and the Saanich Inlet Single-Cell Database (Morgan-Lang, 2017):
 
 **1) BASH Script: RefSeq Database**
 

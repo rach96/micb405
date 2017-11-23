@@ -163,7 +163,7 @@ awk '{ if(!x[$2]++) {print $0; dist=($3-1)} else { if($3<dist) print $0} }' > \
 ```
 <br>
 
-## PROKKA (Prokka, 2014) Commands: Gene Classification
+## PROKKA (Seeman, 2014) Commands: Gene Classification
 
 ```
 prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001.fasta 

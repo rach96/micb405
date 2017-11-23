@@ -180,7 +180,7 @@ nohup bwa index /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.conti
 
 ```
 nohup bwa mem -t 4 /home/micb405/Group12/Project2/MEGAHIT/SI072_LV_150m/final.contigs.fa \
-/home/dtruong/SI072_LV_150m_DNA_R1.fastq.gz /home/dtruong/SI072_LV_150m_DNA_R2.fastq.gz \
+/home/micb405/data/project_2/SI072_LV_150m_DNA_R1.fastq.gz /home/micb405/data/project_2/SI072_LV_150m_DNA_R2.fastq.gz  \
 1>/home/micb405/Group12/Project2/BWA_output/SI072_LV_150m_DNA.sam \
 2>/home/micb405/Group12/Project2/BWA_output/SI072_LV_150m_DNA.bwa.stderr &
 ```

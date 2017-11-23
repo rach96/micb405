@@ -172,7 +172,7 @@ prokka --prefix myout.001 /home/micb405/Group12/Project2/MaxBin_output/myout.001
 
 <br>
 
-## RPKM (Mortazavi et al. 2008) Commands: Normalized Gene Abundance
+## RPKM (Mortazavi et al. 2008) Commands: Normalized Gene Abundance For All MAGs
 
 **1) Index the Reference**
 

@@ -72,12 +72,15 @@ ject3/screen_seqs/Saanich150m.contigs.good.groups)
 ```
 summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.fasta,count=Saanich150m.trim.contigs.good.count_table)
 ```
+
 Note: The previous commands were executed for maxlengths of both 298 and 400
 
 ## Align sequences to Silva: 
 Default threshold: 0.5, default kmer length: 8
-T0.5 represents a threshold of 0.5
-k5 represents a kmer length of 5
+
+* t0.5 represents a threshold of 0.5
+
+* k5 represents a kmer length of 5
 
 **Miguel (t0.5k5):**
 

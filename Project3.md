@@ -10,22 +10,21 @@ For example, we began with paired-end reads and therefore, these 300 bp reads we
 You need only explain the general flow of your pipeline since it is your results and discussion 
 that will get into the meat of your specific parameter choices.
 
-## FASTQC on raw
+## FASTQC on raw:
 
 ```
 fastqc /home/micb405/Group12/Project3/fastq_files/SI072_S3_150_1.fastq /home/micb405/Group12/Project3/fastqc
 fastqc /home/micb405/Group12/Project3/fastq_files/SI072_S3_150_2.fastq /home/micb405/Group12/Project3/fastqc
 ```
 
-## Cutadapt: Remove 50 last bases
+## Cutadapt: Remove 50 last bases:
 
 ```
 cutadapt -u -50 -o SI072_S3_150_1_trimmed.fastq SI072_S3_150_1.fastq
 cutadapt -u -50 -o SI072_S3_150_2_trimmed.fastq SI072_S3_150_2.fastq
 ```
 
-## FASTQC on trimmed
-Change absolute path*
+## FASTQC on trimmed:
 
 ```
 fastqc /home/micb405/Group12/Project3/fastq_files/SI072_S3_150_1_trimmed.fastq /home/micb405/Group12/Project3/fastqc
@@ -34,32 +33,32 @@ fastqc /home/micb405/Group12/Project3/fastq_files/SI072_S3_150_2_trimmed.fastq /
 
 # Sequence Cleanup Steps:
 
-## Create .files
+## Make File With Paired End Read Information:
 
 ```
 make.file(inputdir=/home/micb405/Group12/Project3/fastq_files, prefix=Saanich150m)
 ```
 
-## Make contigs
+## Generate contigs:
 
 ```
 make.contigs(file=Saanich150m.files)
 ```
 
-## Summarize output
+## Summarize output:
 
 ```
 summary.seqs(fasta=/home/micb405/Group12/Project3/contigs/Saanich150m.trim.contigs.fasta)
 ```
 
-## Quality control
+## Extract High Quality Contigs:
 
 ```
 screen.seqs(fasta=/home/micb405/Group12/Project3/contigs_2/Saanich150m.trim.contigs.fasta, group=Saanich150m.contigs.groups, maxambig=0, 
 maxhomop=8, minlength=282, maxlength=298)
 ```
 
-## Summarizing Resulting Sequences:
+## Summarize Resulting Sequences:
 
 ```
 summary.seqs(fasta=Saanich150m.trim.contigs.good.fasta)
@@ -71,23 +70,21 @@ summary.seqs(fasta=Saanich150m.trim.contigs.good.fasta)
 unique.seqs(fasta=/home/micb405/Group12/Project3/screen_seqs/Saanich150m.trim.contigs.good.fasta)
 ```
 
-## Combine .names and.groups files into a count_table to shorten later steps that require both files
+## Create count_table:
 
 ```
 count.seqs(name=/home/micb405/Group12/Project3/screen_seqs/unique_seqs/Saanich150m.trim.contigs.good.names,group=/home/micb405/Group12/Pro
 ject3/screen_seqs/Saanich150m.contigs.good.groups)
 ```
 
-## Summarize again:
-This summary will inform how well your quality control in screen.seqs went. Were you too strict? Do you have enough data left for coverage 
-of your sample? Could you be more strict and get better quality data?
+## Summarize Previous steps:
 
 ```
 summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.fasta,count=Saanich150m.trim.contigs.good.count_table)
 ```
 Note: The previous commands were executed for maxlengths of both 298 and 400
 
-## Align sequences to a database. 
+## Align sequences to Silva: 
 Default threshold: 0.5, default kmer length: 8
 T0.5 represents a threshold of 0.5
 k5 represents a kmer length of 5
@@ -121,7 +118,7 @@ align.seqs(fasta=/home/micb405/Group12/Project3/screen_seqs/unique_seqs/Saanich1
 reference=/home/micb405/data/project_3/databases/silva.nr_v128.align, flip=T, threshold=0.75, ksize=8)
 ```
 
-## Summarize
+## Summarize Alignment:
 
 **Miguel (t0.5k5):**
 
@@ -152,7 +149,7 @@ count=/home/micb405/Group12/Project3/screen_seqs/unique_seqs/Saanich150m.trim.co
 ```
 
 
-## Keep Sequences With Same Start and End Alignment Positions
+## Keep Sequences With Same Start and End Alignment Positions:
 
 **Miguel (t0.5k5):**
 
@@ -186,7 +183,7 @@ count=/home/micb405/Group12/Project3/screen_seqs/unique_seqs/Saanich150m.trim.co
 summary=/home/micb405/Group12/Project3/alignseqs/t0.75k8/Saanich150m.trim.contigs.good.unique.summary, start=10370, end=25318)
 ```
 
-## Summarize Previous Step
+## Summarize Previous Step:
 
 **Miguel (t0.5k5):**
 
@@ -216,7 +213,7 @@ summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/Saan
 count=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/Saanich150m.trim.contigs.good.good.count_table)
 ```
 
-## Change .align File to .fasta File
+## Change .align File to .fasta File:
 
 **Miguel (t0.5k5):**
 
@@ -244,7 +241,7 @@ filter.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/Saani
 trump=.)
 ```
 
-## Remove Duplicate Sequences
+## Remove Duplicate Sequences Again:
 
 **Miguel (t0.5k5):**
 
@@ -274,7 +271,7 @@ unique.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/editf
 ,count=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/Saanich150m.trim.contigs.good.good.count_table)
 ```
 
-## Pre-cluster Sequences With 1 and 2 Mismatches
+## Pre-cluster Sequences With 1 and 2 Mismatches:
 
 **298 Diff 1**
 
@@ -291,8 +288,6 @@ que.fasta,
 count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/de_replicated_again/Saanich150m.trim.contigs.good.unique.good.filter.count_table, 
 diffs=2)
 ```
-
-## Summarize The Previous Step
 
 ## Pre-Cluster Summary:
 
@@ -327,7 +322,7 @@ pre.cluster(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.fasta,
 pre.cluster(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.count_table, diffs=2)
 ```
 
-## Pre-cluster Summary
+## Pre-cluster Summary:
 
 **298 Diff1**
 
@@ -424,7 +419,7 @@ summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precl
 * Note: This command was run for all 4 conditions (298 diff1/2 and 400 diff1/2)
 
 
-## Removing Singletons
+## Removing Singletons:
 
 **298 diff1:**
 
@@ -458,7 +453,7 @@ split.abund(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.preclu
 ```
 
 
-## Singleton Summary?
+## Singleton Summary:
 
 **298 diff1:**
 
@@ -492,9 +487,9 @@ summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precl
 
 
 ---------------------------------------------------------------------
-# Clustering OTU:
+# Clustering OTUs:
 
-## Calculate a distance matrix. Please use the lower triange (lt) format to save space.
+## Create a distance matrix
 
 **400Diff1:**
 
@@ -514,7 +509,8 @@ dist.seqs(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff
 dist.seqs(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff2.fasta, output=lt)
 ```
 
-## Cluster sequences. Carefully consider the method you want to use.  
+## Cluster Sequences Using Opticlust:  
+* Note: The last command is using the DGC algorithm
 
 **298 Diff 1: 0.03**
 ```
@@ -547,14 +543,14 @@ cluster(phylip=/home/micb405/Group12/Project3/otu_cluster/distance_matrix/len_40
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.count_table, method=opti, cutoff=0.01)
 ```
 
-**400 Diff 2: DGC**
+**400 Diff 2: Using the DGC Algorithm**
 
 ```
 cluster(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.fasta, 
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.count_table, method=dgc, cutoff=0.03)
 ```
 
-## Tutorial Command: Make Shared
+## Generate Shared File
 
 ```
 make.shared(list=/home/micb405/Group12/Project3/clustering/Saanich150m_t0.5k8_len400_diff1.phylip.opti_mcc.list, 
@@ -584,7 +580,7 @@ count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.
 
 ---------------------------------------------------------------------
 
-## Classify sequences based on a Silva
+## Classify sequences based on a Silva:
 
 **298 diff 1:**
 
@@ -622,7 +618,7 @@ template=/home/micb405/data/project_3/databases/silva.nr_v128.align, taxonomy=/h
 cutoff=60)
 ```
 
-## Use the sequence classification output to apply the resulting taxonomy to OTUs: Label 0.03
+## Classifying OTUs Using Label 0.03:
 
 **298 diff 1 (60-60):**
 
@@ -688,7 +684,7 @@ taxonomy=/home/micb405/Group12/Project3/classifyseqs/cutoff60/Saanich150m_t0.5k8
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.count_table, cutoff=80, threshold=80, basis=otu)
 ```
 
-## Use the sequence classification output to apply the resulting taxonomy to OTUs: Label 0.01
+## Classifying OTUs Using Label 0.01:
 
 **400 diff 2 (60-60)0.01:**
 
@@ -706,7 +702,7 @@ taxonomy=/home/micb405/Group12/Project3/classifyseqs/cutoff60/Saanich150m_t0.5k8
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, cutoff=80, threshold=80, basis=otu) 
 ```
 
-## Use the sequence classification output to apply the resulting taxonomy to OTUs: Clustering DGC
+## Classifying OTUs Using DGC Algorithm:
 
 **400 diff 2 (60-60)dgc:**
 

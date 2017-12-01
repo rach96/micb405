@@ -40,8 +40,8 @@ cutadapt -u -50 -o SI072_S3_150_2_trimmed.fastq SI072_S3_150_2.fastq
 Change absolute path*
 
 ```
-fastqc SI072_S3_150_1_trimmed.fastq
-fastqc SI072_S3_150_2_trimmed.fastq
+fastqc /home/micb405/Group12/Project3/fastq_files/SI072_S3_150_1_trimmed.fastq /home/micb405/Group12/Project3/fastqc
+fastqc /home/micb405/Group12/Project3/fastq_files/SI072_S3_150_2_trimmed.fastq /home/micb405/Group12/Project3/fastqc
 ```
 
 # Sequence Cleanup Steps:
@@ -97,10 +97,12 @@ of your sample? Could you be more strict and get better quality data?
 ```
 summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.fasta,count=Saanich150m.trim.contigs.good.count_table)
 ```
-
+Note: The previous commands were executed for maxlengths of both 298 and 400
 
 ## Align sequences to a database. 
 Default threshold: 0.5, default kmer length: 8
+T0.5 represents a threshold of 0.5
+k5 represents a kmer length of 5
 
 **Miguel (t0.5k5):**
 
@@ -161,16 +163,8 @@ summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.75k8/Saanich150m.
 count=/home/micb405/Group12/Project3/screen_seqs/unique_seqs/Saanich150m.trim.contigs.good.count_table)
 ```
 
-## Some random commands: 
 
-```
-summary.seqs(fasta=/home/micb405/Group12/Project3/maxlength_400/align_seqs/de_replicated_post_cut/Saanich150m.trim.contigs.good.unique.goo
-d.filter.unique.fasta, 
-count=/home/micb405/Group12/Project3/maxlength_400/align_seqs/de_replicated_post_cut/Saanich150m.trim.contigs.good.unique.good.filter.coun
-t_table)
-```
-
-## Cut the sequences to the same start and end. Use the previous summary to inform the cutoffs (stare and end) you want to use.
+## Keep Sequences With Same Start and End Alignment Positions
 
 **Miguel (t0.5k5):**
 
@@ -204,7 +198,7 @@ count=/home/micb405/Group12/Project3/screen_seqs/unique_seqs/Saanich150m.trim.co
 summary=/home/micb405/Group12/Project3/alignseqs/t0.75k8/Saanich150m.trim.contigs.good.unique.summary, start=10370, end=25318)
 ```
 
-## This summary will help you to see the result of the second screen.seqs step. If you've lost most of your sequences, then you need to alter the start/end parameters in the previous step.
+## Summarize Previous Step
 
 **Miguel (t0.5k5):**
 
@@ -234,7 +228,7 @@ summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/Saan
 count=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/Saanich150m.trim.contigs.good.good.count_table)
 ```
 
-## The alignment step adds . and - throughout the fasta file (hence why it is now a .align file instead of a .fasta). Columns of only . or - for all sequences provide no useful data and slow down later processes. So, we remove them here.
+## Change .align File to .fasta File
 
 **Miguel (t0.5k5):**
 
@@ -262,7 +256,7 @@ filter.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/Saani
 trump=.)
 ```
 
-## De-replicate again since alignment+filter may reveal additional identical sequences
+## Remove Duplicate Sequences
 
 **Miguel (t0.5k5):**
 
@@ -292,7 +286,9 @@ unique.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/editf
 ,count=/home/micb405/Group12/Project3/alignseqs/t0.75k8/cutseqs/Saanich150m.trim.contigs.good.good.count_table)
 ```
 
-## Pre-cluster very similar sequences. Consider the expected error rate of a 2x300 bp Illumina run. How many differences are actually expected sequencing error?
+## Pre-cluster Sequences With 1 and 2 Mismatches
+
+**298 Diff 1**
 
 ```
 pre.cluster(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/de_replicated_again/Saanich150m.trim.contigs.good.unique.good.filter.uni
@@ -308,7 +304,11 @@ count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/de_replicated_again/Saanic
 diffs=2)
 ```
 
-## Summarize Again
+## Summarize The Previous Step
+
+## Pre-Cluster Summary:
+
+**Pre-cluster Miguel t0.5k8 diff1:**
 
 ```
 summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/Saanich150m.trim.contigs.good.unique.good.filter.unique
@@ -317,9 +317,7 @@ count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/Saanich150
 ount_table)
 ```
 
-## Pre-Cluster
-
-**Pre-cluster Miguel t0.5k8 diff1:**
+**Pre-cluster Duncan t0.5k8 diff=2:**
 
 ```
 summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/Saanich150m.trim.contigs.good.unique.good.filter.unique
@@ -328,11 +326,19 @@ count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/Saanich150
 ount_table)
 ```
 
-**Pre-cluster Duncan t0.5k8 diff=2:**
 
 **Pre-cluster: Rachel Diff 1**
 
+```
+pre.cluster(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.count_table, diffs=1)
+```
+
 **Pre-cluster: Rachel Diff 2**
+
+
+
+
+## Removing Chimeras
 
 **Diff1 chimera:**
 

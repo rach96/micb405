@@ -23,11 +23,10 @@ bash /home/micb405/Group12/Project3/scripts/distance_matrix_len_400_diff_1.sh
 
 
 ## FASTQC on raw
-Change absolute path*
 
 ```
-fastqc SI072_S3_150_1.fastq
-fastqc SI072_S3_150_2.fastq
+fastqc /home/micb405/Group12/Project3/fastq_files/SI072_S3_150_1.fastq /home/micb405/Group12/Project3/fastqc
+fastqc /home/micb405/Group12/Project3/fastq_files/SI072_S3_150_2.fastq /home/micb405/Group12/Project3/fastqc
 ```
 
 ## Cutadapt: Remove 50 last bases
@@ -455,39 +454,42 @@ dist.seqs(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff
 
 ## Cluster sequences. Carefully consider the method you want to use.  
 
-```
-**400 Diff 1: 0.03**
-cluster(phylip=/home/micb405/Group12/Project3/otu_cluster/distance_matrix/len_400_diff_1/Saanich150m_t0.5k8_len400_diff1.phylip.dist, 
-count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, method=opti)
-```
-
-```
 **298 Diff 1: 0.03**
+```
 cluster(phylip=/home/micb405/Group12/Project3/otu_cluster/distance_matrix/len_298_diff_1/Saanich150m_t0.5k8diff1.phylip.dist, 
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff1.count_table, method=opti)
 ```
 
-```
 **298 Diff 2: 0.03**
+```
 cluster(phylip=/home/micb405/Group12/Project3/otu_cluster/distance_matrix/len_298_diff_2/Saanich150m_t0.5k8diff2.phylip.dist, 
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff2.count_table, method=opti)
 ```
 
-```
-**400 Diff 1: 0.01**
-set.dir(output=/home/micb405/Group12/Project3/clustering/0.01)
-```
-
+**400 Diff 1: 0.03**
 ```
 cluster(phylip=/home/micb405/Group12/Project3/otu_cluster/distance_matrix/len_400_diff_1/Saanich150m_t0.5k8_len400_diff1.phylip.dist, 
-count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, method=opti, cutoff=0.01)
+count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, method=opti)
 ```
 
-**400 Diff 1: DGC**
+**400 Diff 2: 0.03**
+```
+cluster(phylip=/home/micb405/Group12/Project3/otu_cluster/distance_matrix/len_400_diff_2/Saanich150m_t0.5k8_len400_diff2.phylip.dist, 
+count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.count_table, method=opti)
+```
+
+**400 Diff 2: 0.03**
 
 ```
-cluster(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.fasta, 
-count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, method=dgc, cutoff=0.03)
+cluster(phylip=/home/micb405/Group12/Project3/otu_cluster/distance_matrix/len_400_diff_2/Saanich150m_t0.5k8_len400_diff2.phylip.dist, 
+count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.count_table, method=opti, cutoff=0.01)
+```
+
+**400 Diff 2: DGC**
+
+```
+cluster(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.fasta, 
+count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.count_table, method=dgc, cutoff=0.03)
 ```
 
 ## Tutorial Command: Make Shared
@@ -497,21 +499,21 @@ make.shared(list=/home/micb405/Group12/Project3/clustering/Saanich150m_t0.5k8_le
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, label=0.03)
 ```
 
-**For Len298 Diff 1:**
+**For Len 298 Diff 1:**
 
 ```
 make.shared(list=/home/micb405/Group12/Project3/clustering/Saanich150m_t0.5k8diff1.phylip.opti_mcc.list, 
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff1.count_table, label=0.03)
 ```
 
-**For Len298 Diff 2:**
+**For Len 298 Diff 2:**
 
 ```
 make.shared(list=/home/micb405/Group12/Project3/clustering/Saanich150m_t0.5k8diff2.phylip.opti_mcc.list, 
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff2.count_table, label=0.03)
 ```
 
-**For Len400 Diff 2:**
+**For Len 400 Diff 2:**
 
 ```
 make.shared(list=/home/micb405/Group12/Project3/clustering/dgc/Saanich150m_t0.5k8_len400_diff1.dgc.unique_list.list, 
@@ -520,7 +522,7 @@ count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.
 
 ## Classify the sequences based on a database. Silva or GreenGenes? What bootstrap cutoff for confidence in your taxonomic assignment?
 
-**298diff1:**
+**298 diff 1:**
 
 ```
 classify.seqs(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff1.fasta, 
@@ -529,7 +531,7 @@ template=/home/micb405/data/project_3/databases/silva.nr_v128.align, taxonomy=/h
 cutoff=60)
 ```
 
-**298diff2:**
+**298 diff 2:**
 
 ```
 classify.seqs(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff2.fasta, 
@@ -538,7 +540,7 @@ template=/home/micb405/data/project_3/databases/silva.nr_v128.align, taxonomy=/h
 cutoff=60)
 ```
 
-**400 diff1:**
+**400 diff 1:**
 
 ```
 classify.seqs(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.fasta, 
@@ -547,7 +549,7 @@ template=/home/micb405/data/project_3/databases/silva.nr_v128.align, taxonomy=/h
 cutoff=60)
 ```
 
-**400diff2:**
+**400 diff 2:**
 
 ```
 classify.seqs(fasta=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff2.fasta, 
@@ -558,7 +560,7 @@ cutoff=60)
 
 ## Use the sequence classification output to apply the resulting taxonomy to OTUs: Label 0.03
 
-**298diff1 (60-60):**
+**298 diff 1 (60-60):**
 
 ```
 classify.otu(list=/home/micb405/Group12/Project3/clustering/Saanich150m_t0.5k8diff1.phylip.opti_mcc.list, 
@@ -566,7 +568,7 @@ taxonomy=/home/micb405/Group12/Project3/classifyseqs/cutoff60/Saanich150m_t0.5k8
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff1.count_table, cutoff=60, threshold=60, basis=otu) 
 ```
 
-**298diff1 (80-80):**
+**298 diff 1 (80-80):**
 
 ```
 classify.otu(list=/home/micb405/Group12/Project3/clustering/Saanich150m_t0.5k8diff1.phylip.opti_mcc.list, 
@@ -574,7 +576,7 @@ taxonomy=/home/micb405/Group12/Project3/classifyseqs/cutoff60/Saanich150m_t0.5k8
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff1.count_table, cutoff=80, threshold=80, basis=otu) 
 ```
 
-**298diff2 (80-80):**
+**298 diff 2 (80-80):**
 
 ```
 classify.otu(list=/home/micb405/Group12/Project3/clustering/Saanich150m_t0.5k8diff2.phylip.opti_mcc.list, 
@@ -582,7 +584,7 @@ taxonomy=/home/micb405/Group12/Project3/classifyseqs/cutoff60/Saanich150m_t0.5k8
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8diff2.count_table, cutoff=80, threshold=80, basis=otu) 
 ```
 
-**298diff2 (60-60):**
+**298 diff 2 (60-60):**
 
 ```
 classify.otu(list=/home/micb405/Group12/Project3/clustering/Saanich150m_t0.5k8diff2.phylip.opti_mcc.list, 
@@ -624,7 +626,7 @@ count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.
 
 ## Use the sequence classification output to apply the resulting taxonomy to OTUs: Label 0.01
 
-**400 diff 1 (60-60)0.01:**
+**400 diff 2 (60-60)0.01:**
 
 ```
 classify.otu(list=/home/micb405/Group12/Project3/clustering/0.01/Saanich150m_t0.5k8_len400_diff1.phylip.opti_mcc.list, 
@@ -632,7 +634,7 @@ taxonomy=/home/micb405/Group12/Project3/classifyseqs/cutoff60/Saanich150m_t0.5k8
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, cutoff=60, threshold=60, basis=otu)
 ```
 
-**400 diff 1 (80-80)0.01:**
+**400 diff 2 (80-80)0.01:**
 
 ```
 classify.otu(list=/home/micb405/Group12/Project3/clustering/0.01/Saanich150m_t0.5k8_len400_diff1.phylip.opti_mcc.list, 
@@ -642,7 +644,7 @@ count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.
 
 ## Use the sequence classification output to apply the resulting taxonomy to OTUs: Clustering DGC
 
-**400 diff 1 (60-60)dgc:**
+**400 diff 2 (60-60)dgc:**
 
 ```
 classify.otu(list=/home/micb405/Group12/Project3/clustering/dgc/Saanich150m_t0.5k8_len400_diff1.dgc.unique_list.list, 
@@ -650,7 +652,7 @@ taxonomy=/home/micb405/Group12/Project3/classifyseqs/cutoff60/Saanich150m_t0.5k8
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, cutoff=60, threshold=60, basis=otu) 
 ```
 
-**400 diff 1 (80-80)dgc:**
+**400 diff 2 (80-80)dgc:**
 
 ```
 classify.otu(list=/home/micb405/Group12/Project3/clustering/dgc/Saanich150m_t0.5k8_len400_diff1.dgc.unique_list.list, 
@@ -661,14 +663,14 @@ count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.
 
 ## Summarize OTU table: 
 
-**298diff1:**
+**298 diff 1:**
 
 ```
 summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/Saanich150m_t0.5k8diff1.phylip.opti_mcc.shared, calc=nseqs-
 sobs-coverage-shannon-chao)
 ```
 
-**298diff2:**
+**298 diff 2:**
 
 ```
 summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/Saanich150m_t0.5k8diff2.phylip.opti_mcc.shared, calc=nseqs-
@@ -682,25 +684,25 @@ summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/Saa
 calc=nseqs-sobs-coverage-shannon-chao)
 ```
 
-**400diff2:**
+**400 diff 2:**
 
 ```
 summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/Saanich150m_t0.5k8_len400_diff2.phylip.opti_mcc.shared, 
 calc=nseqs-sobs-coverage-shannon-chao)
 ```
 
-**400 diff 1 0.01:**
+**400 diff 2 0.01:**
 
 ```
-summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/0.01/Saanich150m_t0.5k8_len400_diff1.phylip.opti_mcc.shared, 
+summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/0.01/Saanich150m_t0.5k8_len400_diff2.phylip.opti_mcc.shared, 
 calc=nseqs-sobs-coverage-shannon-chao)
 ```
 
 
-**400 diff 1 dgc:**
+**400 diff 2 dgc:**
 
 ```
-summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/dgc/Saanich150m_t0.5k8_len400_diff1.dgc.unique_list.shared, 
+summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/dgc/Saanich150m_t0.5k8_len400_diff2.dgc.unique_list.shared, 
 calc=nseqs-sobs-coverage-shannon-chao)
 ```
 

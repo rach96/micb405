@@ -10,18 +10,6 @@ For example, we began with paired-end reads and therefore, these 300 bp reads we
 You need only explain the general flow of your pipeline since it is your results and discussion 
 that will get into the meat of your specific parameter choices.
 
-
-## Scripts for something...
-script /dev/null
-bash /home/micb405/Group12/Project3/scripts/len_400_t5_k8_diff2.sh
-
-script /dev/null
-bash /home/micb405/Group12/Project3/scripts/len_298_t5_k8_diff1.sh
-
-script /dev/null
-bash /home/micb405/Group12/Project3/scripts/distance_matrix_len_400_diff_1.sh
-
-
 ## FASTQC on raw
 
 ```
@@ -335,7 +323,41 @@ pre.cluster(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.fasta,
 
 **Pre-cluster: Rachel Diff 2**
 
+```
+pre.cluster(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.count_table, diffs=2)
+```
 
+## Pre-cluster Summary
+
+**298 Diff1**
+
+```
+summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/chimera/Saanich150m.trim.contigs.good.unique.good.filte
+r.unique.precluster.pick.fasta, 
+count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/chimera/Saanich150m.trim.contigs.good.unique.good.filter.unique.prec
+luster.denovo.vsearch.pick.count_table)
+```
+
+**298 Diff2**
+
+```
+summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/chimera/Saanich150m.trim.contigs.good.unique.good.filte
+r.unique.precluster.pick.fasta, 
+count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/chimera/Saanich150m.trim.contigs.good.unique.good.filter.unique.prec
+luster.denovo.vsearch.pick.count_table)
+```
+
+**400 Diff1**
+
+```
+summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.count_table)
+```
+
+**400 Diff2**
+
+```
+summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.count_table)
+```
 
 
 ## Removing Chimeras
@@ -356,12 +378,6 @@ accnos=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/chimera/S
 cluster.denovo.vsearch.accnos)
 ```
 
-```
-summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/chimera/Saanich150m.trim.contigs.good.unique.good.filte
-r.unique.precluster.pick.fasta, 
-count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/chimera/Saanich150m.trim.contigs.good.unique.good.filter.unique.prec
-luster.denovo.vsearch.pick.count_table)
-```
 
 **Diff 2 chimera:**
 
@@ -379,18 +395,38 @@ accnos=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/chimera/S
 cluster.denovo.vsearch.accnos)
 ```
 
+**400 Diff1 chimera:**
+
 ```
-summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/chimera/Saanich150m.trim.contigs.good.unique.good.filte
-r.unique.precluster.pick.fasta, 
-count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/chimera/Saanich150m.trim.contigs.good.unique.good.filter.unique.prec
-luster.denovo.vsearch.pick.count_table)
+chimera.vsearch(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t)
 ```
 
-**Rachel Diff1 chimera:**
+```
+remove.seqs(fasta=/home/micb405/Group12/Project3/maxlength_400/align_seqs/pre_clustering/diff_1/Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.fasta, accnos=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.accnos)
+```
 
-**Rachel Diff2 chimera:**
 
-**diff1:**
+**400 Diff2 chimera:**
+
+```
+chimera.vsearch(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t)
+```
+
+```
+remove.seqs(fasta=/home/micb405/Group12/Project3/maxlength_400/align_seqs/pre_clustering/diff_2/Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.fasta, accnos=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.accnos)
+```
+
+## Chimera Summary:
+
+```
+summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table)
+```
+* Note: This command was run for all 4 conditions (298 diff1/2 and 400 diff1/2)
+
+
+## Removing Singletons
+
+**298 diff1:**
 
 ```
 split.abund(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/chimera/Saanich150m.trim.contigs.good.unique.good.filter
@@ -399,7 +435,7 @@ count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/chimera/Sa
 luster.denovo.vsearch.pick.count_table, cutoff=1)
 ```
 
-**Diff2:**
+**298 Diff2:**
 
 ```
 split.abund(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/chimera/Saanich150m.trim.contigs.good.unique.good.filter
@@ -408,9 +444,23 @@ count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/chimera/Sa
 luster.denovo.vsearch.pick.count_table, cutoff=1)
 ```
 
-## How many sequences were singletons?
+**400 Diff1:**
 
-**Miguel diff1:**
+```
+split.abund(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, cutoff=1)
+```
+
+
+**400 Diff2:**
+
+```
+split.abund(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.pick.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.count_table, cutoff=1)
+```
+
+
+## Singleton Summary?
+
+**298 diff1:**
 
 ```
 summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/singleton/Saanich150m.trim.contigs.good.unique.good.fil
@@ -419,7 +469,7 @@ count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff1/singleton/
 ecluster.denovo.vsearch.pick.abund.count_table)
 ```
 
-**Miguel Diff2:**
+**298 Diff2:**
 
 ```
 summary.seqs(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/singleton/Saanich150m.trim.contigs.good.unique.good.fil
@@ -428,12 +478,18 @@ count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/preclusterdiff2/singleton/
 ecluster.denovo.vsearch.pick.abund.count_table)
 ```
 
-**Rachel Diff 1:**
+**400 Diff 1:**
 
-**Rachel Diff 2:**
+```
+summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.pick.abund.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.abund.count_table)
+```
 
-Copy files over
-system(cp Saanich.long.file.name.fasta Saanich.10m.final.fasta)
+**400 Diff 2:**
+
+```
+summary.seqs(fasta=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.pick.abund.fasta, count=Saanich150m.trim.contigs.good.unique.good.filter.unique.precluster.denovo.vsearch.pick.abund.count_table)
+```
+
 
 ---------------------------------------------------------------------
 # Clustering OTU:
@@ -526,7 +582,9 @@ make.shared(list=/home/micb405/Group12/Project3/clustering/dgc/Saanich150m_t0.5k
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff2.count_table, label=0.03)
 ```
 
-## Classify the sequences based on a database. Silva or GreenGenes? What bootstrap cutoff for confidence in your taxonomic assignment?
+---------------------------------------------------------------------
+
+## Classify sequences based on a Silva
 
 **298 diff 1:**
 
@@ -666,7 +724,6 @@ taxonomy=/home/micb405/Group12/Project3/classifyseqs/cutoff60/Saanich150m_t0.5k8
 count=/home/micb405/Group12/Project3/finalfasta/Saanich150m_t0.5k8_len400_diff1.count_table, cutoff=80, threshold=80, basis=otu) 
 ```
 
-
 ## Summarize OTU table: 
 
 **298 diff 1:**
@@ -704,7 +761,6 @@ summary.single(shared=/home/micb405/Group12/Project3/clustering/shared_files/0.0
 calc=nseqs-sobs-coverage-shannon-chao)
 ```
 
-
 **400 diff 2 dgc:**
 
 ```
@@ -717,6 +773,8 @@ calc=nseqs-sobs-coverage-shannon-chao)
 ```
 python taxonomy1b.py
 ```
+
+* Note: these commands were executed on all of the 400 diff 2 files
 
 
 

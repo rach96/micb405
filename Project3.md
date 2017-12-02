@@ -784,6 +784,8 @@ python taxonomy1b.py
 
 3. Schloss, P.D., et al., Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. Appl Environ Microbiol, 2009. 75(23):7537-41.
 
+4. Westcott, S. L., & Schloss, P. D. (2017, March & april). OptiClust, an Improved Method for Assigning Amplicon-Based Sequence Data to Operational Taxonomic Units. Retrieved November 28, 2017, from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5343174/
+
 
 
 

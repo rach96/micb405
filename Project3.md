@@ -782,12 +782,9 @@ python taxonomy1b.py
 
 2. Quast C, Pruesse E, Yilmaz P, Gerken J, Schweer T, Yarza P, Peplies J, Glöckner FO (2013) The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Nucl. Acids Res. 41 (D1): D590-D596.
 
-3. Schloss, P.D., et al., Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. Appl Environ Microbiol, 2009. 75(23):7537-41.
+3. Rognes T, Flouri T, Nichols B, Quince C, Mahé F. (2016) VSEARCH: a versatile open source tool for metagenomics. PeerJ 4:e2584. doi: 10.7717/peerj.2584
 
-4. Westcott, S. L., & Schloss, P. D. (2017, March & april). OptiClust, an Improved Method for Assigning Amplicon-Based Sequence Data to Operational Taxonomic Units. Retrieved November 28, 2017, from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5343174/
+4. Schloss, P.D., et al., Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. Appl Environ Microbiol, 2009. 75(23):7537-41.
 
-
-
-
-
+5. Westcott, S. L., & Schloss, P. D. (2017, March & april). OptiClust, an Improved Method for Assigning Amplicon-Based Sequence Data to Operational Taxonomic Units. Retrieved November 28, 2017, from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5343174/
 

@@ -275,6 +275,8 @@ count=/home/micb405/Group12/Project3/alignseqs/t0.5k8/de_replicated_again/Saanic
 diffs=1)
 ```
 
+**298 Diff 2**
+
 ```
 pre.cluster(fasta=/home/micb405/Group12/Project3/alignseqs/t0.5k8/de_replicated_again/Saanich150m.trim.contigs.good.unique.good.filter.uni
 que.fasta, 

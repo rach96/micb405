@@ -765,7 +765,11 @@ python taxonomy1b.py
 
 * Note: these commands were executed on all of the 400 diff 2 files
 
+## References:
 
+1. Brown, J., Pirrung, M., & McCue, L. (2017). FQC dashboard: Integrates FastQC results into a web-based, interactive, and extensible FASTQ quality control tool. Bioinformatics, 33(19), 3137-3139. doi:10.1093/bioinformatics/btx373
+
+2. Schloss, P.D., et al., Introducing mothur: Open-source, platform-independent, community-supported software for describing and comparing microbial communities. Appl Environ Microbiol, 2009. 75(23):7537-41.
 
 
 

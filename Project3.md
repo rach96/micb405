@@ -1,5 +1,9 @@
 # Methods
 
+**Project 3: Metagenomics and iTAG/Amplicon Sequencing Analysis**
+
+Samples taken from the Saanich Inlet in British Columbia at 150m depth. Project 3 aims to determine the taxonomic classifications of the samples using iTAG/Amplicon sequencing of the 16S rRNA V4 region and an OTU-based pipeline. 
+
 ## FASTQC on raw:
 
 ```

@@ -1,6 +1,8 @@
 # micb405: Bash Scripts/Commands (Adapted From Connor's Multiple Workflows)
 **Project 2: Metagenomics**
 
+Samples taken from the Saanich Inlet in British Columbia at 150m depth. Project 2 aims to determine the taxonomic classifications of the samples and hypothesize their roles in the nitrogen cycle and their interconnectivity with other microbial communities.
+
 
 ## Workflow Diagram:
 
